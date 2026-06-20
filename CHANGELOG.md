@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 This project follows semantic versioning where practical. Tags use a `v` prefix, for example `v0.1.0`.
 
+## [0.1.6] - 2026-06-20
+
+### Added
+
+- Added README guidance for migrating from evseMQTT before installing the native integration.
+- Added a link to the official Besen BS20 EV Charging Station product page.
+
+### Changed
+
+- Replaced generated brand images with the BESEN company logo.
+- Aligned the Home Assistant manifest version metadata with the release version.
+
 ## [0.1.5] - 2026-06-20
 
 ### Fixed

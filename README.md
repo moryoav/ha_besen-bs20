@@ -20,6 +20,12 @@ This is an early custom integration. It is written to follow Home Assistant's in
 
 ESPHome Bluetooth proxies default to active connections enabled in current ESPHome releases. Each continuously connected charger uses one active GATT connection slot on the selected proxy.
 
+## Migrating From evseMQTT
+
+If you previously used evseMQTT with the same charger, fully stop or terminate the old evseMQTT bridge before installing this integration. This includes any Docker container, Home Assistant add-on, Raspberry Pi service, systemd unit, or other process that may still connect to the charger.
+
+The charger can only keep one active BLE client connection. In some cases, after evseMQTT has been stopped, you may also need to turn the EV charger off and back on so it forgets the old component pairing before Home Assistant can discover or connect to it through this integration.
+
 ## Installation
 
 ### HACS custom repository
@@ -135,7 +141,7 @@ actions:
 
 Known target:
 
-- Besen BS20.
+- [Besen BS20 EV Charging Station](https://www.besen-group.com/products/ev-charging-station/bs20/).
 
 Likely compatible:
 
