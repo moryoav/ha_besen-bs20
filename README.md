@@ -1,4 +1,4 @@
-# Besen BS20 Home Assistant Integration
+# Besen BS20 Home Assistant Integration [![HACS][hacs-badge]][hacs-url] [![release][release-badge]][release-url] ![downloads][downloads-badge] [![hassfest][hassfest-badge]][hassfest-url] [![validate][validate-badge]][validate-url] [![license][license-badge]][license-url]
 
 Native Home Assistant integration for Besen BS20-family EV chargers over Bluetooth Low Energy.
 
@@ -24,6 +24,8 @@ ESPHome Bluetooth proxies default to active connections enabled in current ESPHo
 
 ### HACS custom repository
 
+[![Open the Besen BS20 HACS repository](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=moryoav&repository=ha_besen-bs20&category=integration)
+
 1. Open HACS.
 2. Add this repository as a custom integration repository.
 3. Install **Besen BS20**.
@@ -39,7 +41,9 @@ HACS uses GitHub releases when they are available. Install the latest release ta
 2. Restart Home Assistant.
 3. Add **Besen BS20** from **Settings > Devices & services**.
 
-## Setup Parameters
+## Configuration
+
+[![Add the Besen BS20 integration](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=besen_bs20)
 
 - **BLE address**: The charger Bluetooth address. Discovery fills this automatically when Home Assistant sees an `ACP#...` advertisement.
 - **PIN**: The charger's 6-digit Bluetooth PIN. Many units default to `123456`.
@@ -194,3 +198,15 @@ The Bluetooth protocol implementation is based on the MIT-licensed work in [sles
 - Update `CHANGELOG.md` for every user-visible change.
 - Keep `pyproject.toml` and `custom_components/besen_bs20/manifest.json` versions aligned.
 - Create tags as `vX.Y.Z`; the release workflow publishes a GitHub release from the matching changelog section.
+
+[hacs-badge]: https://img.shields.io/badge/HACS-Custom-41BDF5.svg?style=flat-square
+[hacs-url]: https://github.com/hacs/integration
+[release-badge]: https://img.shields.io/github/v/release/moryoav/ha_besen-bs20?style=flat-square
+[release-url]: https://github.com/moryoav/ha_besen-bs20/releases
+[downloads-badge]: https://img.shields.io/github/downloads/moryoav/ha_besen-bs20/total?style=flat-square
+[hassfest-badge]: https://img.shields.io/github/actions/workflow/status/moryoav/ha_besen-bs20/hassfest.yaml?branch=main&style=flat-square&label=hassfest
+[hassfest-url]: https://github.com/moryoav/ha_besen-bs20/actions/workflows/hassfest.yaml
+[validate-badge]: https://img.shields.io/github/actions/workflow/status/moryoav/ha_besen-bs20/validate.yaml?branch=main&style=flat-square&label=validate
+[validate-url]: https://github.com/moryoav/ha_besen-bs20/actions/workflows/validate.yaml
+[license-badge]: https://img.shields.io/github/license/moryoav/ha_besen-bs20?style=flat-square
+[license-url]: https://github.com/moryoav/ha_besen-bs20/blob/main/LICENSE

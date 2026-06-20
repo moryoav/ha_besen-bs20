@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 This project follows semantic versioning where practical. Tags use a `v` prefix, for example `v0.1.0`.
 
+## [0.1.2] - 2026-06-20
+
+### Added
+
+- Added README status badges and My Home Assistant install/configuration buttons.
+- Added HACS and hassfest validation workflows.
+
 ## [0.1.1] - 2026-06-20
 
 ### Fixed
