@@ -9,6 +9,7 @@ This project follows semantic versioning where practical. Tags use a `v` prefix,
 ### Added
 
 - Added community health documents, issue templates, and pull request template.
+- Added `NOTICE.md` and restored canonical MIT license text for GitHub license detection.
 
 ## [0.1.3] - 2026-06-20
 

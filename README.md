@@ -193,6 +193,8 @@ This integration exposes charger controls but is not a safety controller. Do not
 
 The Bluetooth protocol implementation is based on the MIT-licensed work in [slespersen/evseMQTT](https://github.com/slespersen/evseMQTT), with the MQTT/runtime portions replaced by native Home Assistant integration code.
 
+Additional attribution details are maintained in [NOTICE.md](NOTICE.md).
+
 ## Maintainer Notes
 
 - Update `CHANGELOG.md` for every user-visible change.
