@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 This project follows semantic versioning where practical. Tags use a `v` prefix, for example `v0.1.0`.
 
+## [0.1.5] - 2026-06-20
+
+### Fixed
+
+- Matched entity display names to evseMQTT MQTT discovery labels, including phase voltage and amperage sensors.
+
 ## [0.1.4] - 2026-06-20
 
 ### Added

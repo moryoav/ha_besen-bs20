@@ -52,6 +52,7 @@ class BesenSensorEntityDescription(SensorEntityDescription):
 SENSORS: tuple[BesenSensorEntityDescription, ...] = (
     BesenSensorEntityDescription(
         key="current_power",
+        name="Current Energy",
         value_fn=lambda data: data.charge.current_energy,
         device_class=SensorDeviceClass.POWER,
         native_unit_of_measurement=UnitOfPower.WATT,
@@ -59,6 +60,7 @@ SENSORS: tuple[BesenSensorEntityDescription, ...] = (
     ),
     BesenSensorEntityDescription(
         key="total_energy",
+        name="Total Energy",
         value_fn=lambda data: data.charge.current_amount,
         device_class=SensorDeviceClass.ENERGY,
         native_unit_of_measurement=UnitOfEnergy.KILO_WATT_HOUR,
@@ -66,6 +68,7 @@ SENSORS: tuple[BesenSensorEntityDescription, ...] = (
     ),
     BesenSensorEntityDescription(
         key="session_energy",
+        name="Session Energy",
         value_fn=lambda data: data.charge.total_energy,
         device_class=SensorDeviceClass.ENERGY,
         native_unit_of_measurement=UnitOfEnergy.KILO_WATT_HOUR,
@@ -73,6 +76,7 @@ SENSORS: tuple[BesenSensorEntityDescription, ...] = (
     ),
     BesenSensorEntityDescription(
         key="temperature",
+        name="Temperature",
         value_fn=lambda data: data.charge.inner_temp_c,
         device_class=SensorDeviceClass.TEMPERATURE,
         native_unit_of_measurement=UnitOfTemperature.CELSIUS,
@@ -80,6 +84,7 @@ SENSORS: tuple[BesenSensorEntityDescription, ...] = (
     ),
     BesenSensorEntityDescription(
         key="outer_temperature",
+        name="Outer Temperature",
         value_fn=lambda data: data.charge.outer_temp,
         device_class=SensorDeviceClass.TEMPERATURE,
         native_unit_of_measurement=UnitOfTemperature.CELSIUS,
@@ -89,6 +94,7 @@ SENSORS: tuple[BesenSensorEntityDescription, ...] = (
     ),
     BesenSensorEntityDescription(
         key="l1_voltage",
+        name="L1 Voltage",
         value_fn=lambda data: data.charge.l1_voltage,
         device_class=SensorDeviceClass.VOLTAGE,
         native_unit_of_measurement=UnitOfElectricPotential.VOLT,
@@ -97,6 +103,7 @@ SENSORS: tuple[BesenSensorEntityDescription, ...] = (
     ),
     BesenSensorEntityDescription(
         key="l1_current",
+        name="L1 Amperage",
         value_fn=lambda data: data.charge.l1_amperage,
         device_class=SensorDeviceClass.CURRENT,
         native_unit_of_measurement=UnitOfElectricCurrent.AMPERE,
@@ -105,6 +112,7 @@ SENSORS: tuple[BesenSensorEntityDescription, ...] = (
     ),
     BesenSensorEntityDescription(
         key="l2_voltage",
+        name="L2 Voltage",
         value_fn=lambda data: data.charge.l2_voltage,
         device_class=SensorDeviceClass.VOLTAGE,
         native_unit_of_measurement=UnitOfElectricPotential.VOLT,
@@ -113,6 +121,7 @@ SENSORS: tuple[BesenSensorEntityDescription, ...] = (
     ),
     BesenSensorEntityDescription(
         key="l2_current",
+        name="L2 Amperage",
         value_fn=lambda data: data.charge.l2_amperage,
         device_class=SensorDeviceClass.CURRENT,
         native_unit_of_measurement=UnitOfElectricCurrent.AMPERE,
@@ -121,6 +130,7 @@ SENSORS: tuple[BesenSensorEntityDescription, ...] = (
     ),
     BesenSensorEntityDescription(
         key="l3_voltage",
+        name="L3 Voltage",
         value_fn=lambda data: data.charge.l3_voltage,
         device_class=SensorDeviceClass.VOLTAGE,
         native_unit_of_measurement=UnitOfElectricPotential.VOLT,
@@ -129,6 +139,7 @@ SENSORS: tuple[BesenSensorEntityDescription, ...] = (
     ),
     BesenSensorEntityDescription(
         key="l3_current",
+        name="L3 Amperage",
         value_fn=lambda data: data.charge.l3_amperage,
         device_class=SensorDeviceClass.CURRENT,
         native_unit_of_measurement=UnitOfElectricCurrent.AMPERE,
@@ -137,6 +148,7 @@ SENSORS: tuple[BesenSensorEntityDescription, ...] = (
     ),
     BesenSensorEntityDescription(
         key="error_state",
+        name="Error State",
         value_fn=lambda data: data.charge.error_details,
         device_class=SensorDeviceClass.ENUM,
         options=sorted(set(ERRORS.values())),
@@ -144,18 +156,21 @@ SENSORS: tuple[BesenSensorEntityDescription, ...] = (
     ),
     BesenSensorEntityDescription(
         key="charging_status",
+        name="Status",
         value_fn=lambda data: data.charge.charging_status,
         device_class=SensorDeviceClass.ENUM,
         options=sorted(set(CHARGING_STATUS.values())),
     ),
     BesenSensorEntityDescription(
         key="charging_message",
+        name="Message",
         value_fn=lambda data: data.charge.charging_status_description,
         device_class=SensorDeviceClass.ENUM,
         options=sorted(set(CHARGING_STATUS_DESCRIPTIONS.values())),
     ),
     BesenSensorEntityDescription(
         key="plug_state",
+        name="Plug State",
         value_fn=lambda data: data.charge.plug_state,
         device_class=SensorDeviceClass.ENUM,
         options=PLUG_STATE,
@@ -163,6 +178,7 @@ SENSORS: tuple[BesenSensorEntityDescription, ...] = (
     ),
     BesenSensorEntityDescription(
         key="output_state",
+        name="Output State",
         value_fn=lambda data: data.charge.output_state,
         device_class=SensorDeviceClass.ENUM,
         options=OUTPUT_STATE,
@@ -170,6 +186,7 @@ SENSORS: tuple[BesenSensorEntityDescription, ...] = (
     ),
     BesenSensorEntityDescription(
         key="current_state",
+        name="Current State",
         value_fn=lambda data: data.charge.current_state,
         device_class=SensorDeviceClass.ENUM,
         options=CURRENT_STATE,
@@ -177,6 +194,7 @@ SENSORS: tuple[BesenSensorEntityDescription, ...] = (
     ),
     BesenSensorEntityDescription(
         key="rssi",
+        name="RSSI",
         value_fn=lambda data: data.config.rssi,
         device_class=SensorDeviceClass.SIGNAL_STRENGTH,
         native_unit_of_measurement=SIGNAL_STRENGTH_DECIBELS_MILLIWATT,
@@ -185,6 +203,7 @@ SENSORS: tuple[BesenSensorEntityDescription, ...] = (
     ),
     BesenSensorEntityDescription(
         key="system_time",
+        name="System Time",
         value_fn=lambda data: data.config.system_time,
         entity_category=EntityCategory.DIAGNOSTIC,
         entity_registry_enabled_default=False,
@@ -192,6 +211,7 @@ SENSORS: tuple[BesenSensorEntityDescription, ...] = (
     ),
     BesenSensorEntityDescription(
         key="software_version",
+        name="Software Version",
         value_fn=lambda data: data.info.software_version,
         entity_category=EntityCategory.DIAGNOSTIC,
         entity_registry_enabled_default=False,
@@ -231,7 +251,7 @@ class BesenBS20Sensor(BesenBS20Entity, SensorEntity):
     ) -> None:
         """Initialize the sensor."""
 
-        super().__init__(coordinator, description.key)
+        super().__init__(coordinator, description.key, name=description.name)
         self.entity_description = description
 
     @property

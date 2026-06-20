@@ -34,7 +34,7 @@ class BesenBS20NameText(BesenBS20Entity, TextEntity):
     def __init__(self, coordinator) -> None:
         """Initialize the text entity."""
 
-        super().__init__(coordinator, "device_name")
+        super().__init__(coordinator, "device_name", name="Name")
 
     @property
     def native_value(self) -> str | None:
@@ -47,4 +47,3 @@ class BesenBS20NameText(BesenBS20Entity, TextEntity):
         """Set charger name."""
 
         await self.coordinator.async_set_device_name(value)
-

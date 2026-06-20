@@ -15,12 +15,20 @@ class BesenBS20Entity(CoordinatorEntity[BesenBS20Coordinator]):
 
     _attr_has_entity_name = True
 
-    def __init__(self, coordinator: BesenBS20Coordinator, key: str) -> None:
+    def __init__(
+        self,
+        coordinator: BesenBS20Coordinator,
+        key: str,
+        name: str | None = None,
+    ) -> None:
         """Initialize the entity."""
 
         super().__init__(coordinator)
         self._attr_unique_id = f"{coordinator.client.address}_{key}"
-        self._attr_translation_key = key
+        if name is None:
+            self._attr_translation_key = key
+        else:
+            self._attr_name = name
 
     @property
     def device_info(self) -> DeviceInfo:
@@ -51,4 +59,3 @@ class BesenBS20Entity(CoordinatorEntity[BesenBS20Coordinator]):
 
         data = self.coordinator.data or self.coordinator.client.state
         return data.available and data.authenticated
-

@@ -35,6 +35,7 @@ class BesenNumberEntityDescription(NumberEntityDescription):
 NUMBERS: tuple[BesenNumberEntityDescription, ...] = (
     BesenNumberEntityDescription(
         key="charge_amps",
+        name="Charge Amps",
         value_fn=lambda data: data.config.charge_amps,
         set_fn=lambda coordinator, value: coordinator.async_set_charge_amps(int(value)),
         max_fn=lambda data: data.info.output_max_amps or FALLBACK_MAX_CHARGE_AMPS,
@@ -46,6 +47,7 @@ NUMBERS: tuple[BesenNumberEntityDescription, ...] = (
     ),
     BesenNumberEntityDescription(
         key="lcd_brightness",
+        name="LCD Brightness",
         value_fn=lambda data: data.config.lcd_brightness,
         set_fn=lambda coordinator, value: coordinator.async_set_lcd_brightness(
             int(value)
@@ -85,7 +87,7 @@ class BesenBS20Number(BesenBS20Entity, NumberEntity):
     def __init__(self, coordinator, description: BesenNumberEntityDescription) -> None:
         """Initialize the number."""
 
-        super().__init__(coordinator, description.key)
+        super().__init__(coordinator, description.key, name=description.name)
         self.entity_description = description
 
     @property

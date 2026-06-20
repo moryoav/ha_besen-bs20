@@ -57,11 +57,11 @@ The exact entity set depends on charger model, board revision, reported phase co
 
 Enabled by default:
 
-- Charging switch.
+- Charge switch.
 - Charge amps number.
-- Current power sensor.
+- Current Energy sensor.
 - Total/session energy sensors.
-- L1 voltage and current.
+- L1 Voltage and L1 Amperage.
 - Charger status, plug state, output state, current state, and error state.
 - Charger temperature.
 - Device name text entity.
@@ -70,7 +70,7 @@ Enabled by default:
 Diagnostic or less commonly used entities may be disabled by default:
 
 - RSSI.
-- L2/L3 voltage and current on three-phase chargers.
+- L2/L3 Voltage and Amperage on three-phase chargers.
 - System time.
 - LCD brightness.
 - Integration/protocol version details.

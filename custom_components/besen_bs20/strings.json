@@ -55,37 +55,37 @@
   },
   "entity": {
     "sensor": {
-      "current_power": { "name": "Current power" },
-      "total_energy": { "name": "Total energy" },
-      "session_energy": { "name": "Session energy" },
+      "current_power": { "name": "Current Energy" },
+      "total_energy": { "name": "Total Energy" },
+      "session_energy": { "name": "Session Energy" },
       "temperature": { "name": "Temperature" },
-      "outer_temperature": { "name": "Outer temperature" },
-      "l1_voltage": { "name": "L1 voltage" },
-      "l1_current": { "name": "L1 current" },
-      "l2_voltage": { "name": "L2 voltage" },
-      "l2_current": { "name": "L2 current" },
-      "l3_voltage": { "name": "L3 voltage" },
-      "l3_current": { "name": "L3 current" },
-      "error_state": { "name": "Error state" },
+      "outer_temperature": { "name": "Outer Temperature" },
+      "l1_voltage": { "name": "L1 Voltage" },
+      "l1_current": { "name": "L1 Amperage" },
+      "l2_voltage": { "name": "L2 Voltage" },
+      "l2_current": { "name": "L2 Amperage" },
+      "l3_voltage": { "name": "L3 Voltage" },
+      "l3_current": { "name": "L3 Amperage" },
+      "error_state": { "name": "Error State" },
       "charging_status": { "name": "Status" },
       "charging_message": { "name": "Message" },
-      "plug_state": { "name": "Plug state" },
-      "output_state": { "name": "Output state" },
-      "current_state": { "name": "Current state" },
+      "plug_state": { "name": "Plug State" },
+      "output_state": { "name": "Output State" },
+      "current_state": { "name": "Current State" },
       "rssi": { "name": "RSSI" },
-      "system_time": { "name": "System time" },
-      "software_version": { "name": "Software version" }
+      "system_time": { "name": "System Time" },
+      "software_version": { "name": "Software Version" }
     },
     "switch": {
-      "charging": { "name": "Charging" }
+      "charging": { "name": "Charge" }
     },
     "number": {
-      "charge_amps": { "name": "Charge amps" },
-      "lcd_brightness": { "name": "LCD brightness" }
+      "charge_amps": { "name": "Charge Amps" },
+      "lcd_brightness": { "name": "LCD Brightness" }
     },
     "select": {
       "language": { "name": "Language" },
-      "temperature_unit": { "name": "Temperature unit" }
+      "temperature_unit": { "name": "Temperature Unit" }
     },
     "text": {
       "device_name": { "name": "Name" }
@@ -107,4 +107,3 @@
     }
   }
 }
-

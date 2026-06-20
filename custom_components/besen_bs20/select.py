@@ -29,6 +29,7 @@ class BesenSelectEntityDescription(SelectEntityDescription):
 SELECTS: tuple[BesenSelectEntityDescription, ...] = (
     BesenSelectEntityDescription(
         key="language",
+        name="Language",
         value_fn=lambda data: data.config.language,
         set_fn=lambda coordinator, value: coordinator.async_set_language(value),
         options=list(LANGUAGES),
@@ -37,6 +38,7 @@ SELECTS: tuple[BesenSelectEntityDescription, ...] = (
     ),
     BesenSelectEntityDescription(
         key="temperature_unit",
+        name="Temperature Unit",
         value_fn=lambda data: data.config.temperature_unit,
         set_fn=lambda coordinator, value: coordinator.async_set_temperature_unit(value),
         options=list(TEMPERATURE_UNITS),
@@ -69,7 +71,7 @@ class BesenBS20Select(BesenBS20Entity, SelectEntity):
     def __init__(self, coordinator, description: BesenSelectEntityDescription) -> None:
         """Initialize the select."""
 
-        super().__init__(coordinator, description.key)
+        super().__init__(coordinator, description.key, name=description.name)
         self.entity_description = description
         self._attr_options = list(description.options or [])
 
@@ -84,4 +86,3 @@ class BesenBS20Select(BesenBS20Entity, SelectEntity):
         """Select an option."""
 
         await self.entity_description.set_fn(self.coordinator, option)
-

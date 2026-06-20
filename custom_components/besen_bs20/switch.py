@@ -30,7 +30,7 @@ class BesenBS20ChargeSwitch(BesenBS20Entity, SwitchEntity):
     def __init__(self, coordinator) -> None:
         """Initialize the switch."""
 
-        super().__init__(coordinator, "charging")
+        super().__init__(coordinator, "charging", name="Charge")
 
     @property
     def is_on(self) -> bool | None:
@@ -48,4 +48,3 @@ class BesenBS20ChargeSwitch(BesenBS20Entity, SwitchEntity):
         """Stop charging."""
 
         await self.coordinator.async_stop_charging()
-
