@@ -1,0 +1,20 @@
+{
+  "domain": "besen_bs20",
+  "name": "Besen BS20",
+  "bluetooth": [
+    {
+      "local_name": "ACP#*",
+      "connectable": true
+    }
+  ],
+  "codeowners": ["@moryoav"],
+  "config_flow": true,
+  "dependencies": ["bluetooth_adapters"],
+  "documentation": "https://github.com/moryoav/ha_besen-bs20",
+  "integration_type": "device",
+  "iot_class": "local_push",
+  "issue_tracker": "https://github.com/moryoav/ha_besen-bs20/issues",
+  "requirements": ["bleak-retry-connector>=3.10.0"],
+  "version": "0.1.0"
+}
+

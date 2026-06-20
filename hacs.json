@@ -1,0 +1,7 @@
+{
+  "name": "Besen BS20",
+  "render_readme": true,
+  "domains": ["sensor", "switch", "number", "select", "text"],
+  "homeassistant": "2025.1.0"
+}
+

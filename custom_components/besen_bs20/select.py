@@ -1,0 +1,87 @@
+"""Select platform for Besen BS20."""
+
+from __future__ import annotations
+
+from collections.abc import Callable
+from dataclasses import dataclass
+
+from homeassistant.components.select import SelectEntity, SelectEntityDescription
+from homeassistant.core import HomeAssistant
+from homeassistant.helpers.entity import EntityCategory
+from homeassistant.helpers.entity_platform import AddEntitiesCallback
+
+from . import BesenBS20ConfigEntry
+from .const import LANGUAGES, TEMPERATURE_UNITS
+from .entity import BesenBS20Entity
+from .models import BesenBS20Data
+
+PARALLEL_UPDATES = 0
+
+
+@dataclass(frozen=True, kw_only=True)
+class BesenSelectEntityDescription(SelectEntityDescription):
+    """Besen select description."""
+
+    value_fn: Callable[[BesenBS20Data], str | None]
+    set_fn: Callable[[object, str], object]
+
+
+SELECTS: tuple[BesenSelectEntityDescription, ...] = (
+    BesenSelectEntityDescription(
+        key="language",
+        value_fn=lambda data: data.config.language,
+        set_fn=lambda coordinator, value: coordinator.async_set_language(value),
+        options=list(LANGUAGES),
+        icon="mdi:translate",
+        entity_category=EntityCategory.CONFIG,
+    ),
+    BesenSelectEntityDescription(
+        key="temperature_unit",
+        value_fn=lambda data: data.config.temperature_unit,
+        set_fn=lambda coordinator, value: coordinator.async_set_temperature_unit(value),
+        options=list(TEMPERATURE_UNITS),
+        icon="mdi:thermometer",
+        entity_category=EntityCategory.CONFIG,
+    ),
+)
+
+
+async def async_setup_entry(
+    hass: HomeAssistant,
+    entry: BesenBS20ConfigEntry,
+    async_add_entities: AddEntitiesCallback,
+) -> None:
+    """Set up Besen BS20 selects."""
+
+    async_add_entities(
+        [
+            BesenBS20Select(entry.runtime_data.coordinator, description)
+            for description in SELECTS
+        ]
+    )
+
+
+class BesenBS20Select(BesenBS20Entity, SelectEntity):
+    """Besen BS20 select."""
+
+    entity_description: BesenSelectEntityDescription
+
+    def __init__(self, coordinator, description: BesenSelectEntityDescription) -> None:
+        """Initialize the select."""
+
+        super().__init__(coordinator, description.key)
+        self.entity_description = description
+        self._attr_options = list(description.options or [])
+
+    @property
+    def current_option(self) -> str | None:
+        """Return the selected option."""
+
+        data = self.coordinator.data or self.coordinator.client.state
+        return self.entity_description.value_fn(data)
+
+    async def async_select_option(self, option: str) -> None:
+        """Select an option."""
+
+        await self.entity_description.set_fn(self.coordinator, option)
+
