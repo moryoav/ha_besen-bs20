@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 This project follows semantic versioning where practical. Tags use a `v` prefix, for example `v0.1.0`.
 
+## [0.1.8] - 2026-06-20
+
+### Changed
+
+- Clarified that the integration is an unofficial community project with no BESEN affiliation or endorsement.
+- Added stronger at-your-own-risk and liability disclaimer language for EV charger control.
+
 ## [0.1.7] - 2026-06-20
 
 ### Added

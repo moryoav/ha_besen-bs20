@@ -8,6 +8,12 @@ This integration talks directly to the charger through Home Assistant's Bluetoot
 
 This is an early custom integration. It is written to follow Home Assistant's integration quality rules closely, with config flow setup, diagnostics, translations, reconnect handling, tests, and end-user documentation. It has not yet been submitted to Home Assistant Core.
 
+## Disclaimer
+
+This is an unofficial community project. It is not affiliated with, associated with, authorized by, endorsed by, or in any way officially connected with BESEN, Besen Group, or any related company. Product names, trademarks, and registered trademarks belong to their respective owners and are used only to identify compatible devices.
+
+Use this integration at your own risk. EV charging equipment controls real electrical hardware; incorrect configuration, device firmware behavior, Bluetooth issues, automation mistakes, or software defects may cause charging interruption, equipment damage, vehicle damage, electrical hazards, or other loss. The maintainer and contributors are not responsible or liable for damage, injury, data loss, costs, or other consequences arising from use of this integration.
+
 ## Requirements
 
 - Home Assistant with the Bluetooth integration enabled.
@@ -196,7 +202,7 @@ From the device page, download diagnostics before opening an issue. Diagnostics 
 
 ## Safety Notes
 
-This integration exposes charger controls but is not a safety controller. Do not rely on it as the only protection for electrical limits, overheating, grid constraints, or vehicle safety. Keep charger hardware, breaker sizing, wiring, and local electrical code protections correct independently of Home Assistant.
+This integration exposes charger controls but is not a safety controller. Do not rely on it as the only protection for electrical limits, overheating, grid constraints, or vehicle safety. Keep charger hardware, breaker sizing, wiring, and local electrical code protections correct independently of Home Assistant. Use manual supervision and conservative automation defaults when controlling charging equipment.
 
 ## Attribution
 
