@@ -1,12 +1,9 @@
-# Besen BS20 Home Assistant Integration [![HACS][hacs-badge]][hacs-url] [![release][release-badge]][release-url] ![downloads][downloads-badge] [![hassfest][hassfest-badge]][hassfest-url] [![validate][validate-badge]][validate-url] [![license][license-badge]][license-url]
+# Besen BS20 Home Assistant Integration 
+[![HACS][hacs-badge]][hacs-url] [![release][release-badge]][release-url] ![downloads][downloads-badge] [![hassfest][hassfest-badge]][hassfest-url] [![validate][validate-badge]][validate-url] [![license][license-badge]][license-url]
 
 Native Home Assistant integration for Besen BS20-family EV chargers over Bluetooth Low Energy.
 
 This integration talks directly to the charger through Home Assistant's Bluetooth stack. It does not need MQTT, Docker, a sidecar process, or a Home Assistant add-on. It is designed to work through existing ESPHome Bluetooth proxies as long as those proxies support active GATT connections.
-
-## Status
-
-This is an early custom integration. It is written to follow Home Assistant's integration quality rules closely, with config flow setup, diagnostics, translations, reconnect handling, tests, and end-user documentation. It has not yet been submitted to Home Assistant Core.
 
 ## Disclaimer
 
@@ -209,12 +206,6 @@ This integration exposes charger controls but is not a safety controller. Do not
 The Bluetooth protocol implementation is based on the MIT-licensed work in [slespersen/evseMQTT](https://github.com/slespersen/evseMQTT), with the MQTT/runtime portions replaced by native Home Assistant integration code.
 
 Additional attribution details are maintained in [NOTICE.md](NOTICE.md).
-
-## Maintainer Notes
-
-- Update `CHANGELOG.md` for every user-visible change.
-- Keep `pyproject.toml` and `custom_components/besen_bs20/manifest.json` versions aligned.
-- Create tags as `vX.Y.Z`; the release workflow publishes a GitHub release from the matching changelog section.
 
 [hacs-badge]: https://img.shields.io/badge/HACS-Custom-41BDF5.svg?style=flat-square
 [hacs-url]: https://github.com/hacs/integration
