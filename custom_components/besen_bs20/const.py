@@ -5,7 +5,7 @@ from typing import Final
 
 DOMAIN: Final = "besen_bs20"
 NAME: Final = "Besen BS20"
-VERSION: Final = "0.1.2"
+VERSION: Final = "0.1.3"
 
 PLATFORMS: Final = [
     "sensor",
