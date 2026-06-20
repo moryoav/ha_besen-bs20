@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 This project follows semantic versioning where practical. Tags use a `v` prefix, for example `v0.1.0`.
 
+## [0.1.1] - 2026-06-20
+
+### Fixed
+
+- Fixed the tag-triggered GitHub release workflow changelog extraction.
+
 ## [0.1.0] - 2026-06-20
 
 ### Added
@@ -21,4 +27,3 @@ This project follows semantic versioning where practical. Tags use a `v` prefix,
 - Hardware validation with a real Besen BS20 over ESPHome Bluetooth proxy is still required.
 - Test coverage is currently protocol-focused; broader fake-BLE and Home Assistant config-flow coverage is planned.
 - Firmware updates, charging history, Wi-Fi setup, device reset, and password reset are not implemented.
-
