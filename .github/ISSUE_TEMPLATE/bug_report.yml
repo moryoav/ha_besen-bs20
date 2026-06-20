@@ -1,0 +1,97 @@
+name: Bug report
+description: Report something that is not working as expected.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a problem. Please remove charger PINs, private BLE addresses, private logs, Wi-Fi details, and personal Home Assistant configuration before submitting.
+  - type: input
+    id: version
+    attributes:
+      label: Integration version
+      description: The Besen BS20 integration version you are using.
+      placeholder: "0.1.3"
+    validations:
+      required: true
+  - type: input
+    id: home_assistant
+    attributes:
+      label: Home Assistant version
+      placeholder: "2026.6.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: install_method
+    attributes:
+      label: Installation method
+      options:
+        - HACS
+        - Manual
+        - Development branch
+    validations:
+      required: true
+  - type: dropdown
+    id: bluetooth_path
+    attributes:
+      label: Bluetooth connection path
+      options:
+        - ESPHome Bluetooth proxy
+        - Local Bluetooth adapter
+        - Both local adapter and proxy
+        - Not sure
+    validations:
+      required: true
+  - type: input
+    id: charger
+    attributes:
+      label: Charger model or advertised name
+      description: Include model, board revision, or advertised name if known. Do not include a private BLE address.
+      placeholder: "Besen BS20 / ACP#..."
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected area
+      options:
+        - Discovery or setup
+        - BLE connection or reconnects
+        - Charger login or PIN
+        - Sensors or entity state
+        - Charger controls
+        - Diagnostics
+        - HACS installation or update
+        - Documentation
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: What did you do?
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Paste relevant logs with sensitive information removed.
+      render: text
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Diagnostics or additional context
+      description: Add diagnostics summary, screenshots, or extra context if useful. Redact sensitive data first.

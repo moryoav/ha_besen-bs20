@@ -1,0 +1,75 @@
+name: Device compatibility report
+description: Share results from a Besen BS20-compatible charger variant.
+title: "[Compatibility]: "
+labels: ["compatibility"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template when reporting a charger variant that works, partly works, or does not work. Remove charger PINs, private BLE addresses, private logs, Wi-Fi details, and personal Home Assistant configuration before submitting.
+  - type: input
+    id: charger
+    attributes:
+      label: Charger model
+      description: Include the brand/model printed on the charger if known.
+      placeholder: "Besen BS20"
+    validations:
+      required: true
+  - type: input
+    id: advertised_name
+    attributes:
+      label: Advertised BLE name
+      description: Include only the non-sensitive advertised name pattern. Do not include a private BLE address.
+      placeholder: "ACP#..."
+  - type: dropdown
+    id: result
+    attributes:
+      label: Result
+      options:
+        - Works
+        - Partly works
+        - Does not work
+        - Not sure yet
+    validations:
+      required: true
+  - type: dropdown
+    id: bluetooth_path
+    attributes:
+      label: Bluetooth connection path
+      options:
+        - ESPHome Bluetooth proxy
+        - Local Bluetooth adapter
+        - Both local adapter and proxy
+        - Not sure
+    validations:
+      required: true
+  - type: input
+    id: integration_version
+    attributes:
+      label: Integration version
+      placeholder: "0.1.3"
+    validations:
+      required: true
+  - type: input
+    id: home_assistant
+    attributes:
+      label: Home Assistant version
+      placeholder: "2026.6.0"
+    validations:
+      required: true
+  - type: textarea
+    id: working
+    attributes:
+      label: What works?
+      description: List discovery, setup, connection, sensors, and controls that work.
+  - type: textarea
+    id: not_working
+    attributes:
+      label: What does not work?
+      description: List failures, missing entities, incorrect values, or connection problems.
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Diagnostics or logs
+      description: Add relevant diagnostics or logs with sensitive data removed.
+      render: text

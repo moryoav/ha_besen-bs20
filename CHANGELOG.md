@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 This project follows semantic versioning where practical. Tags use a `v` prefix, for example `v0.1.0`.
 
+## Unreleased
+
+### Added
+
+- Added community health documents, issue templates, and pull request template.
+
 ## [0.1.3] - 2026-06-20
 
 ### Fixed
