@@ -2,16 +2,18 @@
 
 from __future__ import annotations
 
-from collections.abc import Callable
+from collections.abc import Awaitable, Callable
 from dataclasses import dataclass
+from typing import cast
 
 from homeassistant.components.select import SelectEntity, SelectEntityDescription
+from homeassistant.const import EntityCategory
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from . import BesenBS20ConfigEntry
 from .const import LANGUAGES, TEMPERATURE_UNITS
+from .coordinator import BesenBS20Coordinator
 from .entity import BesenBS20Entity
 from .models import BesenBS20Data
 
@@ -23,7 +25,7 @@ class BesenSelectEntityDescription(SelectEntityDescription):
     """Besen select description."""
 
     value_fn: Callable[[BesenBS20Data], str | None]
-    set_fn: Callable[[object, str], object]
+    set_fn: Callable[[BesenBS20Coordinator, str], Awaitable[None]]
 
 
 SELECTS: tuple[BesenSelectEntityDescription, ...] = (
@@ -68,10 +70,18 @@ class BesenBS20Select(BesenBS20Entity, SelectEntity):
 
     entity_description: BesenSelectEntityDescription
 
-    def __init__(self, coordinator, description: BesenSelectEntityDescription) -> None:
+    def __init__(
+        self,
+        coordinator: BesenBS20Coordinator,
+        description: BesenSelectEntityDescription,
+    ) -> None:
         """Initialize the select."""
 
-        super().__init__(coordinator, description.key, name=description.name)
+        super().__init__(
+            coordinator,
+            description.key,
+            name=cast(str | None, description.name),
+        )
         self.entity_description = description
         self._attr_options = list(description.options or [])
 

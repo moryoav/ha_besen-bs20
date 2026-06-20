@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import logging
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import voluptuous as vol
 from homeassistant import config_entries
@@ -11,12 +11,15 @@ from homeassistant.components import bluetooth
 from homeassistant.components.bluetooth import BluetoothServiceInfoBleak
 from homeassistant.const import CONF_ADDRESS, CONF_NAME, CONF_PIN
 from homeassistant.core import HomeAssistant
-from homeassistant.data_entry_flow import FlowResult
 from homeassistant.helpers import selector
 
 from .client import BesenBS20Client
 from .const import CONF_SYNC_CLOCK, DEFAULT_PIN, DEFAULT_SYNC_CLOCK, DOMAIN
 from .exceptions import CannotConnect, InvalidAuth, NoConnectablePath
+
+if TYPE_CHECKING:
+    from bleak.backends.device import BLEDevice
+    from homeassistant.config_entries import ConfigFlowResult
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -73,7 +76,7 @@ async def _async_validate_input(
     if len(pin) != 6 or not pin.isdigit():
         raise InvalidAuth("PIN must be exactly 6 digits")
 
-    def _ble_device_provider():
+    def _ble_device_provider() -> BLEDevice | None:
         return bluetooth.async_ble_device_from_address(
             hass,
             address,
@@ -81,7 +84,9 @@ async def _async_validate_input(
         )
 
     if _ble_device_provider() is None:
-        await bluetooth.async_request_active_scan(hass)
+        request_active_scan = getattr(bluetooth, "async_request_active_scan", None)
+        if callable(request_active_scan):
+            await request_active_scan(hass)
 
     if _ble_device_provider() is None:
         raise NoConnectablePath("No connectable Bluetooth path is available")
@@ -116,7 +121,7 @@ class BesenBS20ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     async def async_step_bluetooth(
         self,
         discovery_info: BluetoothServiceInfoBleak,
-    ) -> FlowResult:
+    ) -> ConfigFlowResult:
         """Handle Bluetooth discovery."""
 
         if not (discovery_info.name or "").startswith("ACP#"):
@@ -140,7 +145,7 @@ class BesenBS20ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     async def async_step_bluetooth_confirm(
         self,
         user_input: dict[str, Any] | None = None,
-    ) -> FlowResult:
+    ) -> ConfigFlowResult:
         """Confirm a discovered charger."""
 
         assert self._discovered_address is not None
@@ -195,7 +200,7 @@ class BesenBS20ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     async def async_step_user(
         self,
         user_input: dict[str, Any] | None = None,
-    ) -> FlowResult:
+    ) -> ConfigFlowResult:
         """Handle manual setup."""
 
         errors: dict[str, str] = {}
@@ -243,7 +248,7 @@ class BesenBS20ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     async def async_step_reauth(
         self,
         entry_data: dict[str, Any],
-    ) -> FlowResult:
+    ) -> ConfigFlowResult:
         """Handle reauthentication."""
 
         self._discovered_address = entry_data[CONF_ADDRESS]
@@ -253,7 +258,7 @@ class BesenBS20ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     async def async_step_reauth_confirm(
         self,
         user_input: dict[str, Any] | None = None,
-    ) -> FlowResult:
+    ) -> ConfigFlowResult:
         """Ask the user for a new PIN."""
 
         errors: dict[str, str] = {}
@@ -296,7 +301,7 @@ class BesenBS20ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     async def async_step_reconfigure(
         self,
         user_input: dict[str, Any] | None = None,
-    ) -> FlowResult:
+    ) -> ConfigFlowResult:
         """Handle UI reconfiguration."""
 
         entry = self.hass.config_entries.async_get_entry(self.context["entry_id"])

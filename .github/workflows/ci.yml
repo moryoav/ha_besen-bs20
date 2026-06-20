@@ -19,5 +19,7 @@ jobs:
           pip install -e ".[dev]"
       - name: Ruff
         run: ruff check .
+      - name: Mypy
+        run: mypy
       - name: Tests
         run: pytest --cov -q

@@ -10,7 +10,7 @@ import struct
 from collections.abc import Iterable
 from dataclasses import dataclass
 from datetime import UTC, datetime, timedelta, timezone
-from typing import Any
+from typing import Any, Literal
 
 from .const import (
     CHARGE_START_ERROR,
@@ -171,7 +171,10 @@ def byte_to_integer(value: int) -> int:
     return value & 0xFF
 
 
-def bytes_to_integer(value: bytes | bytearray, byteorder: str = "big") -> int:
+def bytes_to_integer(
+    value: bytes | bytearray,
+    byteorder: Literal["big", "little"] = "big",
+) -> int:
     """Convert bytes to an unsigned integer."""
 
     return int.from_bytes(value, byteorder=byteorder)
@@ -351,7 +354,7 @@ def parse_single_ac_status(data: bytes, _identifier: str) -> dict[str, Any]:
     inner_raw = bytes_to_integer(data[13:15])
     inner_temp_c = -1.0 if inner_raw == 255 else round((inner_raw - 20000) * 0.01, 1)
 
-    status = {
+    status: dict[str, Any] = {
         "line_id": bytes_to_integer(data[0:1]),
         "error_info": error_info,
         "error_details": get_failure_details(error_info),

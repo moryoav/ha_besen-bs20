@@ -4,26 +4,31 @@ from __future__ import annotations
 
 import logging
 from dataclasses import dataclass
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING
 
 from .const import CONF_SYNC_CLOCK, DEFAULT_SYNC_CLOCK, PLATFORMS
+
+if TYPE_CHECKING:
+    from bleak.backends.device import BLEDevice
+    from homeassistant.config_entries import ConfigEntry
+    from homeassistant.core import HomeAssistant
+
+    from .client import BesenBS20Client
+    from .coordinator import BesenBS20Coordinator
 
 
 @dataclass(slots=True)
 class BesenBS20RuntimeData:
     """Runtime data for a Besen BS20 config entry."""
 
-    client: Any
-    coordinator: Any
+    client: BesenBS20Client
+    coordinator: BesenBS20Coordinator
 
 
 if TYPE_CHECKING:
-    from homeassistant.config_entries import ConfigEntry
-    from homeassistant.core import HomeAssistant
-
-    BesenBS20ConfigEntry = ConfigEntry[BesenBS20RuntimeData]
+    type BesenBS20ConfigEntry = ConfigEntry[BesenBS20RuntimeData]
 else:
-    BesenBS20ConfigEntry = Any
+    BesenBS20ConfigEntry = object
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -55,7 +60,7 @@ async def async_setup_entry(
         entry.data.get(CONF_SYNC_CLOCK, DEFAULT_SYNC_CLOCK),
     )
 
-    def _ble_device_provider():
+    def _ble_device_provider() -> BLEDevice | None:
         return bluetooth.async_ble_device_from_address(
             hass,
             address,
@@ -64,11 +69,19 @@ async def async_setup_entry(
 
     if _ble_device_provider() is None:
         async_create_no_connectable_path_issue(hass, entry.entry_id)
-        reason = bluetooth.async_address_reachability_diagnostics(
-            hass,
-            address,
-            bluetooth.BluetoothReachabilityIntent.CONNECTION,
+        reason = "No connectable Bluetooth path is available"
+        diagnostics = getattr(
+            bluetooth,
+            "async_address_reachability_diagnostics",
+            None,
         )
+        intent = getattr(
+            getattr(bluetooth, "BluetoothReachabilityIntent", object),
+            "CONNECTION",
+            None,
+        )
+        if callable(diagnostics) and intent is not None:
+            reason = diagnostics(hass, address, intent)
         raise ConfigEntryNotReady(reason)
 
     client = BesenBS20Client(

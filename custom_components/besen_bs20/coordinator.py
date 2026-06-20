@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import logging
-from typing import Any
+from collections.abc import Callable
 
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
@@ -29,7 +29,7 @@ class BesenBS20Coordinator(DataUpdateCoordinator[BesenBS20Data]):
             update_method=self._async_update_data,
         )
         self.client = client
-        self._remove_listener: Any = None
+        self._remove_listener: Callable[[], None] | None = None
 
     async def async_start(self) -> None:
         """Start listening to charger updates."""
@@ -99,4 +99,3 @@ class BesenBS20Coordinator(DataUpdateCoordinator[BesenBS20Data]):
         """Set charger name."""
 
         await self.client.async_set_device_name(name)
-

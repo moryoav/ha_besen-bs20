@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from collections.abc import Callable
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, cast
 
 from homeassistant.components.sensor import (
     SensorDeviceClass,
@@ -14,6 +14,7 @@ from homeassistant.components.sensor import (
 )
 from homeassistant.const import (
     SIGNAL_STRENGTH_DECIBELS_MILLIWATT,
+    EntityCategory,
     UnitOfElectricCurrent,
     UnitOfElectricPotential,
     UnitOfEnergy,
@@ -21,7 +22,6 @@ from homeassistant.const import (
     UnitOfTemperature,
 )
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from . import BesenBS20ConfigEntry
@@ -33,6 +33,7 @@ from .const import (
     OUTPUT_STATE,
     PLUG_STATE,
 )
+from .coordinator import BesenBS20Coordinator
 from .entity import BesenBS20Entity
 from .models import BesenBS20Data
 
@@ -246,12 +247,16 @@ class BesenBS20Sensor(BesenBS20Entity, SensorEntity):
 
     def __init__(
         self,
-        coordinator,
+        coordinator: BesenBS20Coordinator,
         description: BesenSensorEntityDescription,
     ) -> None:
         """Initialize the sensor."""
 
-        super().__init__(coordinator, description.key, name=description.name)
+        super().__init__(
+            coordinator,
+            description.key,
+            name=cast(str | None, description.name),
+        )
         self.entity_description = description
 
     @property

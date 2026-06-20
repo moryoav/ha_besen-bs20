@@ -3,11 +3,12 @@
 from __future__ import annotations
 
 from homeassistant.components.text import TextEntity
+from homeassistant.const import EntityCategory
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from . import BesenBS20ConfigEntry
+from .coordinator import BesenBS20Coordinator
 from .entity import BesenBS20Entity
 
 PARALLEL_UPDATES = 0
@@ -31,7 +32,7 @@ class BesenBS20NameText(BesenBS20Entity, TextEntity):
     _attr_native_max = 11
     _attr_icon = "mdi:rename-outline"
 
-    def __init__(self, coordinator) -> None:
+    def __init__(self, coordinator: BesenBS20Coordinator) -> None:
         """Initialize the text entity."""
 
         super().__init__(coordinator, "device_name", name="Name")

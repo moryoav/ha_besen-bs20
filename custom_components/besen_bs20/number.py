@@ -2,21 +2,22 @@
 
 from __future__ import annotations
 
-from collections.abc import Callable
+from collections.abc import Awaitable, Callable
 from dataclasses import dataclass
+from typing import cast
 
 from homeassistant.components.number import (
     NumberEntity,
     NumberEntityDescription,
     NumberMode,
 )
-from homeassistant.const import PERCENTAGE, UnitOfElectricCurrent
+from homeassistant.const import PERCENTAGE, EntityCategory, UnitOfElectricCurrent
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from . import BesenBS20ConfigEntry
 from .const import FALLBACK_MAX_CHARGE_AMPS, MIN_CHARGE_AMPS
+from .coordinator import BesenBS20Coordinator
 from .entity import BesenBS20Entity
 from .models import BesenBS20Data
 
@@ -28,7 +29,7 @@ class BesenNumberEntityDescription(NumberEntityDescription):
     """Besen number description."""
 
     value_fn: Callable[[BesenBS20Data], float | None]
-    set_fn: Callable[[object, float], object]
+    set_fn: Callable[[BesenBS20Coordinator, float], Awaitable[None]]
     max_fn: Callable[[BesenBS20Data], float]
 
 
@@ -84,10 +85,18 @@ class BesenBS20Number(BesenBS20Entity, NumberEntity):
 
     entity_description: BesenNumberEntityDescription
 
-    def __init__(self, coordinator, description: BesenNumberEntityDescription) -> None:
+    def __init__(
+        self,
+        coordinator: BesenBS20Coordinator,
+        description: BesenNumberEntityDescription,
+    ) -> None:
         """Initialize the number."""
 
-        super().__init__(coordinator, description.key, name=description.name)
+        super().__init__(
+            coordinator,
+            description.key,
+            name=cast(str | None, description.name),
+        )
         self.entity_description = description
 
     @property

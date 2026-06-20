@@ -7,7 +7,7 @@ import logging
 import time
 from collections.abc import Callable
 from contextlib import suppress
-from typing import Any
+from typing import Any, cast
 
 from bleak.backends.device import BLEDevice
 from bleak_retry_connector import BleakClientWithServiceCache, establish_connection
@@ -264,7 +264,10 @@ class BesenBS20Client:
                 self._name,
                 disconnected_callback=self._disconnected,
                 max_attempts=CONNECT_ATTEMPTS,
-                ble_device_callback=self._ble_device_provider,
+                ble_device_callback=cast(
+                    Callable[[], BLEDevice],
+                    self._ble_device_provider,
+                ),
                 timeout=CONNECT_TIMEOUT,
             )
             self._characteristics = self._select_characteristics()
@@ -545,7 +548,7 @@ class BesenBS20Client:
     async def _watchdog_loop(self) -> None:
         """Reconnect if notifications stop arriving."""
 
-        while not self._stopping:
+        while True:
             await asyncio.sleep(MESSAGE_TIMEOUT)
             if self._stopping:
                 return

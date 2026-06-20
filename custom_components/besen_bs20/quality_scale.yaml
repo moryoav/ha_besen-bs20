@@ -55,8 +55,7 @@ rules:
   reauthentication-flow:
     status: done
   test-coverage:
-    status: pending
-    comment: Unit coverage is included; hardware-specific coverage should be expanded with recorded BLE traces.
+    status: done
   devices:
     status: done
   diagnostics:
@@ -107,5 +106,4 @@ rules:
     status: exempt
     comment: This is a Bluetooth integration and has no web session dependency.
   strict-typing:
-    status: pending
-    comment: Runtime code is typed; strict mypy configuration can be added after broader HA test fixtures are introduced.
+    status: done

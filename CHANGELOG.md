@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 This project follows semantic versioning where practical. Tags use a `v` prefix, for example `v0.1.0`.
 
+## [0.1.7] - 2026-06-20
+
+### Added
+
+- Added strict mypy validation to CI and marked the integration as typed with `py.typed`.
+- Added broad unit coverage for config flow, setup/unload, coordinator, entities, diagnostics, repairs, protocol parsing, and the fake BLE client paths.
+
+### Changed
+
+- Tightened type annotations across the integration and enabled an enforced 95% coverage gate.
+- Updated quality-scale tracking for strict typing and test coverage.
+
 ## [0.1.6] - 2026-06-20
 
 ### Added
