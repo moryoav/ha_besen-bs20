@@ -163,10 +163,13 @@ Unsupported or not implemented:
 
 The charger may be visible only through a passive/non-connectable adapter. Use an ESPHome Bluetooth proxy with active connections enabled, or a local Bluetooth adapter supported by Home Assistant.
 
+Stop any existing evseMQTT bridge, Docker container, add-on, Raspberry Pi service, or other app that is already connected to the charger before setting up this integration. The charger can expose live data through the old MQTT bridge while Home Assistant has no free connectable BLE path for the native integration.
+
 ### The charger becomes unavailable
 
 - Check **Settings > Bluetooth > Connection monitor**.
 - Verify the proxy has free active connection slots.
+- Stop any old evseMQTT/MQTT bridge or companion process that may still hold the charger's BLE connection.
 - Prefer Ethernet ESP32 Bluetooth proxies when possible.
 - Avoid placing the proxy next to strong Wi-Fi or USB 3.0 interference sources.
 

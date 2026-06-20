@@ -4,12 +4,14 @@ All notable changes to this project will be documented in this file.
 
 This project follows semantic versioning where practical. Tags use a `v` prefix, for example `v0.1.0`.
 
-## Unreleased
+## [0.1.4] - 2026-06-20
 
 ### Added
 
 - Added community health documents, issue templates, and pull request template.
 - Added `NOTICE.md` and restored canonical MIT license text for GitHub license detection.
+- Increased BLE setup connection timeout/retries and added redacted setup diagnostics.
+- Report missing active Bluetooth paths as `no_connectable_path` and document evseMQTT bridge contention.
 
 ## [0.1.3] - 2026-06-20
 

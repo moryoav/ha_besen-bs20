@@ -13,6 +13,8 @@ from bleak.backends.device import BLEDevice
 from bleak_retry_connector import BleakClientWithServiceCache, establish_connection
 
 from .const import (
+    CONNECT_ATTEMPTS,
+    CONNECT_TIMEOUT,
     DEFAULT_CHARGE_AMPS,
     FALLBACK_MAX_CHARGE_AMPS,
     LANGUAGES,
@@ -261,9 +263,17 @@ class BesenBS20Client:
                 ble_device,
                 self._name,
                 disconnected_callback=self._disconnected,
+                max_attempts=CONNECT_ATTEMPTS,
                 ble_device_callback=self._ble_device_provider,
+                timeout=CONNECT_TIMEOUT,
             )
             self._characteristics = self._select_characteristics()
+            self._logger.debug(
+                "Selected Besen BS20 %s board characteristics read=%s write=%s",
+                self._characteristics.board_revision.value,
+                self._characteristics.read_uuid,
+                self._characteristics.write_uuid,
+            )
             self._update_info(board_revision=self._characteristics.board_revision)
             await self._client.start_notify(
                 self._characteristics.read_uuid,
@@ -271,7 +281,9 @@ class BesenBS20Client:
             )
         except Exception as err:
             await self._disconnect_client()
-            raise CannotConnect(f"Unable to connect to charger: {err}") from err
+            raise CannotConnect(
+                f"Unable to connect to charger via BLE: {type(err).__name__}: {err}"
+            ) from err
 
         self._last_message = time.monotonic()
         self._set_state(available=True, last_error=None)

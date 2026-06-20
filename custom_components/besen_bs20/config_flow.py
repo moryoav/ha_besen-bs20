@@ -16,7 +16,7 @@ from homeassistant.helpers import selector
 
 from .client import BesenBS20Client
 from .const import CONF_SYNC_CLOCK, DEFAULT_PIN, DEFAULT_SYNC_CLOCK, DOMAIN
-from .exceptions import CannotConnect, InvalidAuth
+from .exceptions import CannotConnect, InvalidAuth, NoConnectablePath
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -84,7 +84,7 @@ async def _async_validate_input(
         await bluetooth.async_request_active_scan(hass)
 
     if _ble_device_provider() is None:
-        raise CannotConnect("No connectable Bluetooth path is available")
+        raise NoConnectablePath("No connectable Bluetooth path is available")
 
     client = BesenBS20Client(
         address=address,
@@ -158,7 +158,19 @@ class BesenBS20ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 )
             except InvalidAuth:
                 errors["base"] = "invalid_auth"
-            except CannotConnect:
+            except NoConnectablePath as err:
+                _LOGGER.warning(
+                    "Besen BS20 setup failed for %s: %s",
+                    self._discovered_address,
+                    err,
+                )
+                errors["base"] = "no_connectable_path"
+            except CannotConnect as err:
+                _LOGGER.warning(
+                    "Besen BS20 setup failed for %s: %s",
+                    self._discovered_address,
+                    err,
+                )
                 errors["base"] = "cannot_connect"
             except Exception:
                 _LOGGER.exception("Unexpected Besen BS20 setup error")
@@ -203,7 +215,11 @@ class BesenBS20ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 )
             except InvalidAuth:
                 errors["base"] = "invalid_auth"
-            except CannotConnect:
+            except NoConnectablePath as err:
+                _LOGGER.warning("Besen BS20 setup failed for %s: %s", address, err)
+                errors["base"] = "no_connectable_path"
+            except CannotConnect as err:
+                _LOGGER.warning("Besen BS20 setup failed for %s: %s", address, err)
                 errors["base"] = "cannot_connect"
             except Exception:
                 _LOGGER.exception("Unexpected Besen BS20 setup error")
@@ -256,7 +272,11 @@ class BesenBS20ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 )
             except InvalidAuth:
                 errors["base"] = "invalid_auth"
-            except CannotConnect:
+            except NoConnectablePath as err:
+                _LOGGER.warning("Besen BS20 reauth failed for %s: %s", address, err)
+                errors["base"] = "no_connectable_path"
+            except CannotConnect as err:
+                _LOGGER.warning("Besen BS20 reauth failed for %s: %s", address, err)
                 errors["base"] = "cannot_connect"
             except Exception:
                 _LOGGER.exception("Unexpected Besen BS20 reauth error")
@@ -295,7 +315,19 @@ class BesenBS20ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 )
             except InvalidAuth:
                 errors["base"] = "invalid_auth"
-            except CannotConnect:
+            except NoConnectablePath as err:
+                _LOGGER.warning(
+                    "Besen BS20 reconfigure failed for %s: %s",
+                    entry.data[CONF_ADDRESS],
+                    err,
+                )
+                errors["base"] = "no_connectable_path"
+            except CannotConnect as err:
+                _LOGGER.warning(
+                    "Besen BS20 reconfigure failed for %s: %s",
+                    entry.data[CONF_ADDRESS],
+                    err,
+                )
                 errors["base"] = "cannot_connect"
             except Exception:
                 _LOGGER.exception("Unexpected Besen BS20 reconfigure error")

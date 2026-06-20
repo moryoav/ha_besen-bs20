@@ -9,6 +9,10 @@ class CannotConnect(BesenBS20Error):
     """Raised when the charger cannot be reached."""
 
 
+class NoConnectablePath(CannotConnect):
+    """Raised when Home Assistant has no active Bluetooth path to the charger."""
+
+
 class InvalidAuth(BesenBS20Error):
     """Raised when the charger rejects the PIN."""
 

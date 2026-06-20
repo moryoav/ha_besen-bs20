@@ -5,7 +5,7 @@ from typing import Final
 
 DOMAIN: Final = "besen_bs20"
 NAME: Final = "Besen BS20"
-VERSION: Final = "0.1.3"
+VERSION: Final = "0.1.4"
 
 PLATFORMS: Final = [
     "sensor",
@@ -34,6 +34,8 @@ REV_BOARD_SERVICE_PREFIXES: Final = ("0003cdd0-",)
 NEW_BOARD_SERVICE_PREFIXES: Final = ("0000ffe5-", "0000ffe0-")
 
 LOGIN_TIMEOUT: Final = 45
+CONNECT_TIMEOUT: Final = 65.0
+CONNECT_ATTEMPTS: Final = 5
 MESSAGE_TIMEOUT: Final = 45
 RECONNECT_DELAY: Final = 5
 UNAVAILABLE_LOG_COOLDOWN: Final = timedelta(minutes=10)
