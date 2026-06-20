@@ -31,6 +31,8 @@ ESPHome Bluetooth proxies default to active connections enabled in current ESPHo
 5. Go to **Settings > Devices & services**.
 6. Add **Besen BS20** or accept the discovered `ACP#...` device.
 
+HACS uses GitHub releases when they are available. Install the latest release tag unless you explicitly want to test the default branch.
+
 ### Manual installation
 
 1. Copy `custom_components/besen_bs20` into your Home Assistant `custom_components` directory.
@@ -186,3 +188,9 @@ This integration exposes charger controls but is not a safety controller. Do not
 ## Attribution
 
 The Bluetooth protocol implementation is based on the MIT-licensed work in [slespersen/evseMQTT](https://github.com/slespersen/evseMQTT), with the MQTT/runtime portions replaced by native Home Assistant integration code.
+
+## Maintainer Notes
+
+- Update `CHANGELOG.md` for every user-visible change.
+- Keep `pyproject.toml` and `custom_components/besen_bs20/manifest.json` versions aligned.
+- Create tags as `vX.Y.Z`; the release workflow publishes a GitHub release from the matching changelog section.

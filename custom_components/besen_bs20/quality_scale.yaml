@@ -5,8 +5,7 @@ rules:
   appropriate-polling:
     status: done
   brands:
-    status: pending
-    comment: Brand assets should be submitted if this moves toward Home Assistant Core inclusion.
+    status: done
   common-modules:
     status: done
   config-flow-test-coverage:
@@ -110,4 +109,3 @@ rules:
   strict-typing:
     status: pending
     comment: Runtime code is typed; strict mypy configuration can be added after broader HA test fixtures are introduced.
-
