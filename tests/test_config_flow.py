@@ -8,8 +8,6 @@ from typing import Any, cast
 
 import pytest
 from bleak.backends.device import BLEDevice
-from homeassistant.components import bluetooth as ha_bluetooth
-from homeassistant.components.bluetooth import BluetoothServiceInfoBleak
 from homeassistant.config_entries import SOURCE_RECONFIGURE
 from homeassistant.const import CONF_ADDRESS, CONF_NAME, CONF_PIN
 from homeassistant.data_entry_flow import FlowResultType
@@ -94,13 +92,16 @@ def _flow() -> BesenBS20ConfigFlow:
     return flow
 
 
-def _discovery(name: str | None = "ACP#Garage") -> BluetoothServiceInfoBleak:
+def _bluetooth_module() -> Any:
+    """Return the runtime Bluetooth module imported by the config flow."""
+
+    return cast(Any, config_flow).bluetooth
+
+
+def _discovery(name: str | None = "ACP#Garage") -> Any:
     """Return fake Bluetooth discovery info."""
 
-    return cast(
-        BluetoothServiceInfoBleak,
-        SimpleNamespace(name=name, address="aa:bb"),
-    )
+    return SimpleNamespace(name=name, address="aa:bb")
 
 
 def _entry() -> SimpleNamespace:
@@ -150,7 +151,7 @@ async def test_validate_input_success_and_errors(
 
     monkeypatch.setattr(config_flow, "BesenBS20Client", _FakeValidationClient)
     monkeypatch.setattr(
-        ha_bluetooth,
+        _bluetooth_module(),
         "async_ble_device_from_address",
         lambda *args, **kwargs: cast(BLEDevice, object()),
     )
@@ -175,7 +176,7 @@ async def test_validate_input_success_and_errors(
         )
 
     monkeypatch.setattr(
-        ha_bluetooth,
+        _bluetooth_module(),
         "async_ble_device_from_address",
         lambda *args, **kwargs: None,
     )

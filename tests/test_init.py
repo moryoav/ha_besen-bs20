@@ -7,7 +7,6 @@ from typing import Any, cast
 
 import pytest
 from bleak.backends.device import BLEDevice
-from homeassistant.components import bluetooth as ha_bluetooth
 from homeassistant.const import CONF_ADDRESS, CONF_NAME, CONF_PIN
 from homeassistant.exceptions import ConfigEntryAuthFailed, ConfigEntryNotReady
 
@@ -113,6 +112,14 @@ def _hass(*, unload_ok: bool = True) -> SimpleNamespace:
     return SimpleNamespace(config_entries=_FakeConfigEntries(unload_ok=unload_ok))
 
 
+def _bluetooth_module() -> Any:
+    """Return the runtime Bluetooth module used by setup."""
+
+    from homeassistant.components import bluetooth
+
+    return bluetooth
+
+
 def _patch_setup_dependencies(
     monkeypatch: pytest.MonkeyPatch,
     *,
@@ -124,20 +131,20 @@ def _patch_setup_dependencies(
     monkeypatch.setattr(client_module, "BesenBS20Client", _FakeClient)
     monkeypatch.setattr(coordinator_module, "BesenBS20Coordinator", _FakeCoordinator)
     monkeypatch.setattr(
-        ha_bluetooth,
+        _bluetooth_module(),
         "async_ble_device_from_address",
         lambda *args, **kwargs: cast(BLEDevice, ble_device)
         if ble_device is not None
         else None,
     )
     monkeypatch.setattr(
-        ha_bluetooth,
+        _bluetooth_module(),
         "async_address_reachability_diagnostics",
         lambda *args, **kwargs: "diagnostic reason",
         raising=False,
     )
     monkeypatch.setattr(
-        ha_bluetooth,
+        _bluetooth_module(),
         "BluetoothReachabilityIntent",
         SimpleNamespace(CONNECTION="connection"),
         raising=False,
