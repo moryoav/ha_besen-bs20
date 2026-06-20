@@ -23,7 +23,7 @@ jobs:
           tag = os.environ["GITHUB_REF_NAME"]
           version = tag.removeprefix("v")
           changelog = Path("CHANGELOG.md").read_text(encoding="utf-8")
-          pattern = rf"^## \\[{re.escape(version)}\\].*?(?=^## \\[|\\Z)"
+          pattern = rf"^## \[{re.escape(version)}\].*?(?=^## \[|\Z)"
           match = re.search(pattern, changelog, flags=re.MULTILINE | re.DOTALL)
           notes = match.group(0).strip() if match else f"Release {tag}"
           Path("release-notes.md").write_text(notes + "\n", encoding="utf-8")
@@ -36,4 +36,3 @@ jobs:
             --title "$GITHUB_REF_NAME" \
             --notes-file release-notes.md \
             --verify-tag
-
