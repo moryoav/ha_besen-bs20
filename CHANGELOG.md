@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 This project follows semantic versioning where practical. Tags use a `v` prefix, for example `v0.1.0`.
 
+## [0.1.9] - 2026-06-21
+
+### Changed
+
+- Prepared the README for HACS default submission by separating badges from the title and removing maintainer-only notes.
+
 ## [0.1.8] - 2026-06-20
 
 ### Changed
