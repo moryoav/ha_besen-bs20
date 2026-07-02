@@ -14,6 +14,6 @@
   "integration_type": "device",
   "iot_class": "local_push",
   "issue_tracker": "https://github.com/moryoav/ha_besen-bs20/issues",
-  "requirements": ["besen-bs20==0.2.1"],
-  "version": "0.2.1"
+  "requirements": ["besen-bs20==0.2.2"],
+  "version": "0.2.2"
 }

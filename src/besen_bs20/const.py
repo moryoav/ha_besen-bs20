@@ -145,7 +145,8 @@ CHARGER_STATUS: Final = {
     11: 0,
 }
 
-TEMPERATURE_UNITS: Final = {"Celcius": 1, "Fahrenheit": 2}
+TEMPERATURE_UNIT_ALIASES: Final = {"Celcius": "Celsius"}
+TEMPERATURE_UNITS: Final = {"Celsius": 1, "Fahrenheit": 2}
 
 LANGUAGES: Final = {
     "English": 1,

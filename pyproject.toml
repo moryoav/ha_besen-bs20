@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "besen-bs20"
-version = "0.2.1"
+version = "0.2.2"
 description = "Async Python client for Besen BS20 EV chargers over BLE"
 readme = "README.md"
 requires-python = ">=3.12"

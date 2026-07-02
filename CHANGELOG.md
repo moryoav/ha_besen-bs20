@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 This project follows semantic versioning where practical. Tags use a `v` prefix, for example `v0.1.0`.
 
+## [0.2.2] - 2026-07-02
+
+### Changed
+
+- Corrected the displayed Celsius temperature-unit spelling while keeping the legacy `Celcius` command input as an alias.
+
 ## [0.2.1] - 2026-07-02
 
 ### Changed

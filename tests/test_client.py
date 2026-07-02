@@ -205,6 +205,7 @@ async def test_client_public_commands_and_listeners(
     await client.async_stop_charging()
     await client.async_set_lcd_brightness(150)
     await client.async_set_temperature_unit("Fahrenheit")
+    await client.async_set_temperature_unit("Celcius")
     await client.async_set_language("Deutsch")
     await client.async_set_device_name("Garage")
     update_count = len(updates)

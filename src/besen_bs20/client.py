@@ -30,6 +30,7 @@ from .const import (
     REV_READ_UUID,
     REV_WRITE_UUID,
     STOP_REASON,
+    TEMPERATURE_UNIT_ALIASES,
     TEMPERATURE_UNITS,
     WRITE_UUID,
 )
@@ -186,6 +187,7 @@ class BesenBS20Client:
     async def async_set_temperature_unit(self, unit: str) -> None:
         """Set the charger temperature unit."""
 
+        unit = TEMPERATURE_UNIT_ALIASES.get(unit, unit)
         if unit not in TEMPERATURE_UNITS:
             raise CommandFailed(f"Unsupported temperature unit: {unit}")
         await self._send_command(

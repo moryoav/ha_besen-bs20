@@ -116,7 +116,7 @@ def _state(*, phases: int = 3) -> BesenBS20Data:
         config=ChargerConfig(
             charge_amps=16,
             lcd_brightness=50,
-            temperature_unit="Celcius",
+            temperature_unit="Celsius",
             language="English",
             device_name="Garage",
             rssi=-55,
@@ -236,7 +236,7 @@ async def test_select_text_and_switch_entities_dispatch_commands() -> None:
 
     assert language.current_option == "English"
     assert "English" in language.options
-    assert temperature.current_option == "Celcius"
+    assert temperature.current_option == "Celsius"
     assert name.native_value == "Garage"
     assert charge.is_on is True
 
