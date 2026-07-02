@@ -142,6 +142,27 @@ def _client(
     )
 
 
+def test_unavailable_warning_is_rate_limited(
+    monkeypatch: pytest.MonkeyPatch,
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    """Repeated unavailable warnings are throttled."""
+
+    client = _client(_FakeBleakClient([]), monkeypatch)
+    times = iter([100.0, 200.0, 701.0])
+    monkeypatch.setattr("besen_bs20.client.time.monotonic", lambda: next(times))
+
+    with caplog.at_level(logging.WARNING):
+        client._log_unavailable_warning("watchdog timeout")
+        client._log_unavailable_warning("watchdog timeout")
+        client._log_unavailable_warning("watchdog timeout")
+
+    assert [record.getMessage() for record in caplog.records] == [
+        "watchdog timeout",
+        "watchdog timeout",
+    ]
+
+
 @pytest.mark.asyncio
 async def test_client_login_selects_new_board_characteristics(
     monkeypatch: pytest.MonkeyPatch,

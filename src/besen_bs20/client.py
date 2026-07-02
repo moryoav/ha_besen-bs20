@@ -54,6 +54,7 @@ BLEDeviceProvider = Callable[[], BLEDevice | None]
 StateListener = Callable[[BesenBS20Data], None]
 
 USER_ID = [101, 118, 115, 101, 77, 81, 84, 84, 0, 0, 0, 0, 0, 0, 0, 0]
+UNAVAILABLE_LOG_INTERVAL_SECONDS = 600
 
 
 class BesenBS20Client:
@@ -88,6 +89,7 @@ class BesenBS20Client:
         self._reconnecting = False
         self._auth_failed = False
         self._last_message = time.monotonic()
+        self._last_unavailable_log: float | None = None
         self._state = BesenBS20Data(
             info=ChargerInfo(address=address, advertised_name=advertised_name)
         )
@@ -289,6 +291,7 @@ class BesenBS20Client:
             ) from err
 
         self._last_message = time.monotonic()
+        self._last_unavailable_log = None
         self._set_state(available=True, last_error=None)
 
     async def _disconnect_client(self) -> None:
@@ -554,7 +557,7 @@ class BesenBS20Client:
                 return
             if time.monotonic() - self._last_message <= MESSAGE_TIMEOUT:
                 continue
-            self._logger.warning(
+            self._log_unavailable_warning(
                 "No Besen BS20 notification received for %s seconds; reconnecting",
                 MESSAGE_TIMEOUT,
             )
@@ -592,3 +595,15 @@ class BesenBS20Client:
                 return
             finally:
                 self._reconnecting = False
+
+    def _log_unavailable_warning(self, message: str, *args: object) -> None:
+        """Log unavailable warnings without repeating every watchdog cycle."""
+
+        now = time.monotonic()
+        if (
+            self._last_unavailable_log is not None
+            and now - self._last_unavailable_log < UNAVAILABLE_LOG_INTERVAL_SECONDS
+        ):
+            return
+        self._last_unavailable_log = now
+        self._logger.warning(message, *args)

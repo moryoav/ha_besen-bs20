@@ -17,7 +17,7 @@ from besen_bs20.const import (
 
 DOMAIN: Final = "besen_bs20"
 NAME: Final = "Besen BS20"
-VERSION: Final = "0.2.0"
+VERSION: Final = "0.2.1"
 
 PLATFORMS: Final = [
     "sensor",
