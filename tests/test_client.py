@@ -9,9 +9,9 @@ from typing import Any, cast
 import pytest
 from bleak.backends.device import BLEDevice
 
-from custom_components.besen_bs20 import client as client_module
-from custom_components.besen_bs20.client import BesenBS20Client
-from custom_components.besen_bs20.const import (
+from besen_bs20 import client as client_module
+from besen_bs20.client import BesenBS20Client
+from besen_bs20.const import (
     NEW_BOARD_READ_UUID,
     NEW_BOARD_SERVICE_PREFIXES,
     NEW_BOARD_WRITE_UUID,
@@ -21,14 +21,14 @@ from custom_components.besen_bs20.const import (
     REV_WRITE_UUID,
     WRITE_UUID,
 )
-from custom_components.besen_bs20.exceptions import (
+from besen_bs20.exceptions import (
     CannotConnect,
     CommandFailed,
     InvalidAuth,
     ProtocolError,
 )
-from custom_components.besen_bs20.models import BoardRevision, CharacteristicPair
-from custom_components.besen_bs20.protocol import PARSERS, build_command
+from besen_bs20.models import BoardRevision, CharacteristicPair
+from besen_bs20.protocol import PARSERS, build_command
 
 
 class _Service:

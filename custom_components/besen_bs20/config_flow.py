@@ -13,9 +13,11 @@ from homeassistant.const import CONF_ADDRESS, CONF_NAME, CONF_PIN
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import selector
 
-from .client import BesenBS20Client
-from .const import CONF_SYNC_CLOCK, DEFAULT_PIN, DEFAULT_SYNC_CLOCK, DOMAIN
-from .exceptions import CannotConnect, InvalidAuth, NoConnectablePath
+from besen_bs20.client import BesenBS20Client
+from besen_bs20.const import DEFAULT_PIN
+from besen_bs20.exceptions import CannotConnect, InvalidAuth, NoConnectablePath
+
+from .const import CONF_SYNC_CLOCK, DEFAULT_SYNC_CLOCK, DOMAIN
 
 if TYPE_CHECKING:
     from bleak.backends.device import BLEDevice

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from custom_components.besen_bs20.models import (
+from besen_bs20.models import (
     BesenBS20Data,
     ChargerConfig,
     ChargerInfo,

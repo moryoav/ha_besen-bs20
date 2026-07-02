@@ -8,10 +8,10 @@ from typing import Any, cast
 import pytest
 from homeassistant.helpers import issue_registry as ir
 
+from besen_bs20.models import BesenBS20Data, ChargerInfo
 from custom_components.besen_bs20 import BesenBS20ConfigEntry, repairs
 from custom_components.besen_bs20.const import DOMAIN
 from custom_components.besen_bs20.diagnostics import async_get_config_entry_diagnostics
-from custom_components.besen_bs20.models import BesenBS20Data, ChargerInfo
 
 
 def _diagnostics_entry() -> BesenBS20ConfigEntry:

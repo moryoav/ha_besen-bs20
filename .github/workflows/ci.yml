@@ -23,3 +23,7 @@ jobs:
         run: mypy
       - name: Tests
         run: pytest --cov -q
+      - name: Package
+        run: |
+          python -m build
+          twine check dist/*

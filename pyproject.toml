@@ -1,32 +1,58 @@
+[build-system]
+requires = ["setuptools>=77.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
-name = "ha-besen-bs20"
-version = "0.1.9"
-description = "Native Home Assistant custom integration for Besen BS20 EV chargers over BLE"
+name = "besen-bs20"
+version = "0.2.0"
+description = "Async Python client for Besen BS20 EV chargers over BLE"
 readme = "README.md"
 requires-python = ">=3.12"
-license = { text = "MIT" }
+license = "MIT"
+license-files = ["LICENSE", "NOTICE.md"]
 authors = [{ name = "Yoav Mor", email = "moryoav@gmail.com" }]
 dependencies = [
   "bleak-retry-connector>=3.10.0",
 ]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Framework :: AsyncIO",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Home Automation",
+]
+
+[project.urls]
+Homepage = "https://github.com/moryoav/ha_besen-bs20"
+Repository = "https://github.com/moryoav/ha_besen-bs20"
+Issues = "https://github.com/moryoav/ha_besen-bs20/issues"
+Changelog = "https://github.com/moryoav/ha_besen-bs20/blob/main/CHANGELOG.md"
 
 [project.optional-dependencies]
 dev = [
+  "build>=1.2.0",
   "homeassistant>=2025.1.0",
   "mypy>=1.16.0",
   "pytest>=8.0.0",
   "pytest-asyncio>=0.23.0",
   "pytest-cov>=5.0.0",
   "ruff>=0.8.0",
+  "twine>=6.0.0",
 ]
+
+[tool.setuptools.packages.find]
+where = ["src"]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 testpaths = ["tests"]
+pythonpath = ["src", "."]
 
 [tool.coverage.run]
 branch = true
-source = ["custom_components/besen_bs20"]
+source = ["custom_components/besen_bs20", "src/besen_bs20"]
 omit = [
   "custom_components/besen_bs20/translations/*",
 ]
@@ -45,15 +71,16 @@ select = ["A", "ASYNC", "B", "C4", "DTZ", "E", "F", "FA", "I", "ICN", "N", "PERF
 ignore = ["ASYNC109", "N818"]
 
 [tool.ruff.lint.isort]
-known-first-party = ["custom_components.besen_bs20"]
+known-first-party = ["besen_bs20", "custom_components.besen_bs20"]
 
 [tool.mypy]
 python_version = "3.13"
 strict = true
 warn_unreachable = true
 explicit_package_bases = true
-files = ["custom_components/besen_bs20", "tests"]
-exclude = ["ha_besen_bs20.egg-info"]
+mypy_path = "src"
+files = ["src/besen_bs20", "custom_components/besen_bs20", "tests"]
+exclude = ["build", "dist", "besen_bs20.egg-info", "ha_besen_bs20.egg-info"]
 
 [[tool.mypy.overrides]]
 module = ["bleak.*", "bleak_retry_connector.*"]

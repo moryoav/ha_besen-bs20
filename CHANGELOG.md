@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 This project follows semantic versioning where practical. Tags use a `v` prefix, for example `v0.1.0`.
 
+## [0.2.0] - 2026-07-02
+
+### Added
+
+- Added a `besen-bs20` Python package containing the async BLE client, protocol parser, data models, and exceptions.
+- Added package build validation to CI and PyPI trusted publishing to the tag release workflow.
+
+### Changed
+
+- Updated the Home Assistant integration to depend on `besen-bs20==0.2.0` instead of carrying protocol/client code inside `custom_components`.
+
 ## [0.1.9] - 2026-06-21
 
 ### Changed

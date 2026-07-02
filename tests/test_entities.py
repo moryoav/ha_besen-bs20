@@ -9,6 +9,12 @@ from typing import Any, cast
 import pytest
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
+from besen_bs20.models import (
+    BesenBS20Data,
+    ChargerConfig,
+    ChargerInfo,
+    ChargeStatus,
+)
 from custom_components.besen_bs20 import (
     BesenBS20ConfigEntry,
 )
@@ -29,12 +35,6 @@ from custom_components.besen_bs20 import (
 )
 from custom_components.besen_bs20.coordinator import BesenBS20Coordinator
 from custom_components.besen_bs20.entity import BesenBS20Entity
-from custom_components.besen_bs20.models import (
-    BesenBS20Data,
-    ChargerConfig,
-    ChargerInfo,
-    ChargeStatus,
-)
 from custom_components.besen_bs20.number import NUMBERS, BesenBS20Number
 from custom_components.besen_bs20.select import SELECTS, BesenBS20Select
 from custom_components.besen_bs20.sensor import SENSORS, BesenBS20Sensor

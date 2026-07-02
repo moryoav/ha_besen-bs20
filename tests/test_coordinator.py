@@ -10,9 +10,9 @@ from typing import Any, cast
 import pytest
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
+from besen_bs20.exceptions import CommandFailed
+from besen_bs20.models import BesenBS20Data, ChargerInfo
 from custom_components.besen_bs20.coordinator import BesenBS20Coordinator
-from custom_components.besen_bs20.exceptions import CommandFailed
-from custom_components.besen_bs20.models import BesenBS20Data, ChargerInfo
 
 
 class _FakeClient:

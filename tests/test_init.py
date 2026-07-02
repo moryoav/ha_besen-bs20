@@ -10,16 +10,16 @@ from bleak.backends.device import BLEDevice
 from homeassistant.const import CONF_ADDRESS, CONF_NAME, CONF_PIN
 from homeassistant.exceptions import ConfigEntryAuthFailed, ConfigEntryNotReady
 
+from besen_bs20 import client as client_module
+from besen_bs20.exceptions import CannotConnect, InvalidAuth
 from custom_components.besen_bs20 import (
     BesenBS20ConfigEntry,
     async_setup_entry,
     async_unload_entry,
     repairs,
 )
-from custom_components.besen_bs20 import client as client_module
 from custom_components.besen_bs20 import coordinator as coordinator_module
 from custom_components.besen_bs20.const import CONF_SYNC_CLOCK, PLATFORMS
-from custom_components.besen_bs20.exceptions import CannotConnect, InvalidAuth
 
 
 class _FakeConfigEntries:

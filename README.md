@@ -5,6 +5,14 @@ Native Home Assistant integration for Besen BS20-family EV chargers over Bluetoo
 
 This integration talks directly to the charger through Home Assistant's Bluetooth stack. It does not need MQTT, Docker, a sidecar process, or a Home Assistant add-on. It is designed to work through existing ESPHome Bluetooth proxies as long as those proxies support active GATT connections.
 
+## Python Library
+
+The reusable BLE client and protocol parser are published as the `besen-bs20` Python package. Home Assistant installs that package as this integration's communication dependency.
+
+```bash
+pip install besen-bs20
+```
+
 ## Disclaimer
 
 This is an unofficial community project. It is not affiliated with, associated with, authorized by, endorsed by, or in any way officially connected with BESEN, Besen Group, or any related company. Product names, trademarks, and registered trademarks belong to their respective owners and are used only to identify compatible devices.

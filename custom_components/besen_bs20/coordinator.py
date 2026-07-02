@@ -8,10 +8,11 @@ from collections.abc import Callable
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
-from .client import BesenBS20Client
+from besen_bs20.client import BesenBS20Client
+from besen_bs20.exceptions import CommandFailed
+from besen_bs20.models import BesenBS20Data
+
 from .const import DOMAIN
-from .exceptions import CommandFailed
-from .models import BesenBS20Data
 
 _LOGGER = logging.getLogger(__name__)
 

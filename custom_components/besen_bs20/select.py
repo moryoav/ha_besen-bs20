@@ -11,11 +11,12 @@ from homeassistant.const import EntityCategory
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
+from besen_bs20.models import BesenBS20Data
+
 from . import BesenBS20ConfigEntry
 from .const import LANGUAGES, TEMPERATURE_UNITS
 from .coordinator import BesenBS20Coordinator
 from .entity import BesenBS20Entity
-from .models import BesenBS20Data
 
 PARALLEL_UPDATES = 0
 

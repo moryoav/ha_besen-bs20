@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import pytest
 
-from custom_components.besen_bs20.exceptions import ProtocolError
-from custom_components.besen_bs20.protocol import (
+from besen_bs20.exceptions import ProtocolError
+from besen_bs20.protocol import (
     PacketAssembler,
     build_command,
     bytes_to_int_little,

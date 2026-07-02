@@ -12,15 +12,15 @@ from homeassistant.config_entries import SOURCE_RECONFIGURE
 from homeassistant.const import CONF_ADDRESS, CONF_NAME, CONF_PIN
 from homeassistant.data_entry_flow import FlowResultType
 
-from custom_components.besen_bs20 import config_flow
-from custom_components.besen_bs20.config_flow import BesenBS20ConfigFlow
-from custom_components.besen_bs20.const import CONF_SYNC_CLOCK
-from custom_components.besen_bs20.exceptions import (
+from besen_bs20.exceptions import (
     CannotConnect,
     InvalidAuth,
     NoConnectablePath,
 )
-from custom_components.besen_bs20.models import BesenBS20Data, ChargerInfo
+from besen_bs20.models import BesenBS20Data, ChargerInfo
+from custom_components.besen_bs20 import config_flow
+from custom_components.besen_bs20.config_flow import BesenBS20ConfigFlow
+from custom_components.besen_bs20.const import CONF_SYNC_CLOCK
 
 
 class _FakeConfigEntries:

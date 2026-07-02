@@ -15,11 +15,12 @@ from homeassistant.const import PERCENTAGE, EntityCategory, UnitOfElectricCurren
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
+from besen_bs20.models import BesenBS20Data
+
 from . import BesenBS20ConfigEntry
 from .const import FALLBACK_MAX_CHARGE_AMPS, MIN_CHARGE_AMPS
 from .coordinator import BesenBS20Coordinator
 from .entity import BesenBS20Entity
-from .models import BesenBS20Data
 
 PARALLEL_UPDATES = 0
 

@@ -13,7 +13,8 @@ if TYPE_CHECKING:
     from homeassistant.config_entries import ConfigEntry
     from homeassistant.core import HomeAssistant
 
-    from .client import BesenBS20Client
+    from besen_bs20.client import BesenBS20Client
+
     from .coordinator import BesenBS20Coordinator
 
 
@@ -43,9 +44,10 @@ async def async_setup_entry(
     from homeassistant.const import CONF_ADDRESS, CONF_NAME, CONF_PIN
     from homeassistant.exceptions import ConfigEntryAuthFailed, ConfigEntryNotReady
 
-    from .client import BesenBS20Client
+    from besen_bs20.client import BesenBS20Client
+    from besen_bs20.exceptions import CannotConnect, InvalidAuth
+
     from .coordinator import BesenBS20Coordinator
-    from .exceptions import CannotConnect, InvalidAuth
     from .repairs import (
         async_create_no_connectable_path_issue,
         async_create_reauth_issue,
