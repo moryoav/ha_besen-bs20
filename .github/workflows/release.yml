@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - "v*"
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -22,6 +23,7 @@ jobs:
           python -m pip install --upgrade pip build
           python -m build
       - name: Build release notes
+        if: github.event_name == 'push'
         run: |
           python - <<'PY'
           from pathlib import Path
@@ -37,6 +39,7 @@ jobs:
           Path("release-notes.md").write_text(notes + "\n", encoding="utf-8")
           PY
       - name: Create GitHub release
+        if: github.event_name == 'push'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -47,3 +50,5 @@ jobs:
             --verify-tag
       - name: Publish Python package to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          skip-existing: true
